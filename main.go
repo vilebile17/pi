@@ -6,6 +6,7 @@ import (
 	"math/rand"
 )
 
+// This struct contains other structs for each method of calculating pi
 type Pi struct {
 	circlePi CirclePi 
 	eulerPi EulerPi 
@@ -14,6 +15,7 @@ func (p Pi) getMean() float64 {
 	return (p.circlePi.val + p.eulerPi.val) / 2
 }
 
+// The first method implemented, makes a square with an inscribed circle in it and generates a random point in the square and sees if it is in the circle
 type CirclePi struct {
 	width int
 	centre float64 
@@ -21,8 +23,8 @@ type CirclePi struct {
 	val float64
 }
 func (c CirclePi) calculate(i int) (float64, float64) {
-	x := float64(rand.Intn(9999))
-	y := float64(rand.Intn(9999))
+	x := float64(rand.Intn(c.width))
+	y := float64(rand.Intn(c.width))
 	distanceToCentre := float64(math.Pow(math.Pow(x - c.centre, 2) + math.Pow(y - c.centre, 2), 0.5))
 
 	newInCircle := c.inCircle
@@ -33,6 +35,7 @@ func (c CirclePi) calculate(i int) (float64, float64) {
 	return newInCircle, 4.0 * newInCircle / (float64(i) + 1)
 }
 
+// The second method implemented, uses Leonhard Euler's formula: pi² / 6 = 1/1 + 1/4 + 1/9 + 1/16 + 1/25 ...
 type EulerPi struct {
 	sumSoFar float64
 	val float64
@@ -47,7 +50,7 @@ func main() {
 	// creating the Pi struct
 	pi := Pi{
 		circlePi: CirclePi{
-			width: 9999, 
+			width: 6942067, 
 			inCircle: 0.0, 
 		}, 
 		eulerPi: EulerPi{
@@ -57,11 +60,10 @@ func main() {
 	pi.circlePi.centre = (float64(pi.circlePi.width) + 1.0) / 2 
 
 	for i:=1; i < 999999999999999; i++ {
-		// here we calculate pi using each of the two formulas
+		// here we calculate pi using each of the methods
 		pi.circlePi.inCircle, pi.circlePi.val = pi.circlePi.calculate(i)
 		pi.eulerPi.sumSoFar, pi.eulerPi.val = pi.eulerPi.calculate(i)
 
-		fmt.Printf("circlePi: %v\n", pi.circlePi.val)
-		fmt.Printf("eulerPi: %v\n", pi.eulerPi.val)
+		fmt.Printf("ℼ = %v\n", pi.eulerPi.val)
 	}
 }
