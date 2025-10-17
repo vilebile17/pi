@@ -9,7 +9,11 @@ type EulerPi struct {
 	val float64
 }
 // Uses Leonhard Euler's formula: pi²/6 = 1/1² + 1/2² + 1/3² + 1/4² ...
-func (e EulerPi) calculate(i int) (float64, float64) {
-	sum := e.sumSoFar + float64(math.Pow(float64(i), -2.0))
-	return sum, math.Pow(sum * 6.0, 0.5)	
+// This func calculates each fraction i.e. 1/i²
+func (e EulerPi) calculateNextVal(i int) float64 {
+	return float64(math.Pow(float64(i), -2.0))
+}
+// Uses the sumSoFar value to calculate pi
+func (e EulerPi) calculatePi() float64 {
+	return math.Pow(e.sumSoFar * 6,0.5)
 }

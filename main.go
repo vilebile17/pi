@@ -24,11 +24,19 @@ func main() {
 	}
 	pi.circlePi.centre = (float64(pi.circlePi.width) + 1.0) / 2 
 
-	for i:=1; true ; i++ {
-		// here we calculate pi using each of the methods
-		pi.circlePi.inCircle, pi.circlePi.val = pi.circlePi.calculate(i)
-		pi.eulerPi.sumSoFar, pi.eulerPi.val = pi.eulerPi.calculate(i)
+	ch := make(chan struct{})
+	for i:=1; true ; i+=2 {
+		// eulerPi can be calculated in parallel so we can use goroutines!
+		go func() {
+			pi.eulerPi.sumSoFar += pi.eulerPi.calculateNextVal(i)
+			ch <- struct{}{}
+		}()
 
+		pi.eulerPi.sumSoFar += pi.eulerPi.calculateNextVal(i+1)
+		<-ch
+
+		pi.eulerPi.val = pi.eulerPi.calculatePi()
+		
 		fmt.Printf("ℼ = %v\n", pi.eulerPi.val)
 	}
 }
