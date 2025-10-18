@@ -18,8 +18,8 @@ go install
 ```
 (make sure to run this in the `pi` directory)
 
-now you can calculate pi no matter where in your files you are simply with the command `pi`
+now you can calculate pi no matter where in your files you are:
+
 ```
-```
-```
+pi
 ```
