@@ -16,7 +16,6 @@ it is much more fun and interesting to do a system wide install:
 ```
 go install
 ```
-(make sure to run this in the `pi` directory)
 
 now you can calculate pi no matter where in your files you are:
 
