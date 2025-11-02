@@ -5,6 +5,7 @@ import (
 	"math/rand"
 )
 
+// As of right now, this file is useless, because while this method for calculating pi is cool, it's very, very slow
 type CirclePi struct {
 	width int
 	centre float64 
