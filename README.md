@@ -10,14 +10,14 @@ git clone https://github.com/vilebile17/pi
 cd pi
 ```
 
-you can run `go run .` to run the code in the current repo. However,
+You can run `go run .` to run the code in the current repo. However,
 it is much more fun and interesting to do a system wide install:
 
 ```
 go install
 ```
 
-now you can calculate pi no matter where in your files you are:
+Now you can calculate pi no matter where in your files you are:
 
 ```
 pi

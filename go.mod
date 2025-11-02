@@ -3,7 +3,6 @@ module github.com/vilebile17/pi
 go 1.22.2
 
 require (
-	github.com/briandowns/spinner v1.23.2 // indirect
 	github.com/fatih/color v1.18.0 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect

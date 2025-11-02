@@ -2,9 +2,7 @@ package main
 
 import (
 	"github.com/fatih/color"
-	"github.com/briandowns/spinner"
 	"fmt"
-	"time"
 ) 
 
 // This struct contains other structs for each method of calculating pi
@@ -19,8 +17,6 @@ func (p Pi) getMean() float64 {
 func main() {
 	// for the cool printing effects...
 	color.Cyan("Calculating pi...")
-	s := spinner.New(spinner.CharSets[9], 100*time.Millisecond)
-	s.Start()
 	fmt.Println("")
 
 	// creating the Pi struct
@@ -44,5 +40,4 @@ func main() {
 		}
 		
 	}
-	s.Stop() // I'm not sure how we will get here but oh well.
 }
