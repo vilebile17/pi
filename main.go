@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+) 
 
 // This struct contains other structs for each method of calculating pi
 type Pi struct {
@@ -25,6 +27,7 @@ func main() {
 	pi.circlePi.centre = (float64(pi.circlePi.width) + 1.0) / 2 
 
 	ch := make(chan struct{})
+
 	for i:=1; true ; i+=2 {
 		// eulerPi can be calculated in parallel so we can use goroutines!
 		go func() {
@@ -36,7 +39,9 @@ func main() {
 		<-ch
 
 		pi.eulerPi.val = pi.eulerPi.calculatePi()
+		if (i + 1) % 10000 == 0 {
+			fmt.Printf("ℼ = %v\n", pi.eulerPi.val)
+		}
 		
-		fmt.Printf("ℼ = %v\n", pi.eulerPi.val)
 	}
 }
