@@ -1,7 +1,10 @@
 package main
 
 import (
+	"github.com/fatih/color"
+	"github.com/briandowns/spinner"
 	"fmt"
+	"time"
 ) 
 
 // This struct contains other structs for each method of calculating pi
@@ -14,6 +17,12 @@ func (p Pi) getMean() float64 {
 }
 
 func main() {
+	// for the cool printing effects...
+	color.Cyan("Calculating pi...")
+	s := spinner.New(spinner.CharSets[9], 100*time.Millisecond)
+	s.Start()
+	fmt.Println("")
+
 	// creating the Pi struct
 	pi := Pi{
 		circlePi: CirclePi{
@@ -26,22 +35,14 @@ func main() {
 	}
 	pi.circlePi.centre = (float64(pi.circlePi.width) + 1.0) / 2 
 
-	ch := make(chan struct{})
-
-	for i:=1; true ; i+=2 {
-		// eulerPi can be calculated in parallel so we can use goroutines!
-		go func() {
-			pi.eulerPi.sumSoFar += pi.eulerPi.calculateNextVal(i)
-			ch <- struct{}{}
-		}()
-
-		pi.eulerPi.sumSoFar += pi.eulerPi.calculateNextVal(i+1)
-		<-ch
+	for i:=1; true ; i++ {
+		pi.eulerPi.sumSoFar += pi.eulerPi.calculateNextVal(i)
 
 		pi.eulerPi.val = pi.eulerPi.calculatePi()
 		if (i + 1) % 10000 == 0 {
-			fmt.Printf("ℼ = %v\n", pi.eulerPi.val)
+			fmt.Printf("\r===  ℼ = %.20f  ===", pi.eulerPi.val)
 		}
 		
 	}
+	s.Stop() // I'm not sure how we will get here but oh well.
 }
