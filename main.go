@@ -12,21 +12,19 @@ func main() {
 	fmt.Println("")
 
 	sumSoFar := new(big.Float).SetPrec(256).SetFloat64(0)	
-	one := new(big.Float).SetPrec(256).SetFloat64(1)	
-	six := new(big.Float).SetPrec(256).SetFloat64(6)	
+	one := new(big.Float).SetPrec(8).SetFloat64(1)	
+	six := new(big.Float).SetPrec(8).SetFloat64(6)	
 
 	for i := 1; true; i++ {
-		newI := new(big.Float).SetPrec(256).SetFloat64(float64(i))
+		newI := new(big.Float).SetPrec(32).SetFloat64(float64(i))
 		newI.Mul(newI, newI) //square it
 
 		// dividing
-		result := new(big.Float).SetPrec(256)
-		result.Quo(one, newI)
+		result := new(big.Float).SetPrec(256).Quo(one, newI)
 		sumSoFar.Add(sumSoFar, result)
 
 		if i % 30000 == 0 {
-			piSquared := new(big.Float).SetPrec(256)
-			piSquared.Mul(six, sumSoFar)
+			piSquared := new(big.Float).SetPrec(256).Mul(six, sumSoFar)
 			result := Sqrt(piSquared)
 			fmt.Printf("\r--- ℼ = %.15f ---", result)
 		}
