@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/fatih/color"
 	"fmt"
+	"math/big"
 ) 
 
 func main() {
@@ -10,20 +11,23 @@ func main() {
 	color.Green("Calculating pi...")
 	fmt.Println("")
 
-	// creates the eulerPi struct
-	eulerPi := EulerPi {
-		sumSoFar: 0.0,
-		val: 0.0,
-	}
+	sumSoFar := new(big.Float).SetPrec(256).SetFloat64(0)	
+	one := new(big.Float).SetPrec(256).SetFloat64(1)	
+	six := new(big.Float).SetPrec(256).SetFloat64(6)	
 
-	// calculation loop
-	for i:=1; true ; i++ {
-		eulerPi.calculateNextVal(i)
+	for i := 1; true; i++ {
+		newI := new(big.Float).SetPrec(256).SetFloat64(float64(i))
+		newI.Mul(newI, newI) //square it
 
-		if (i + 1) % 100000 == 0 {
-			eulerPi.calculatePi()
-			fmt.Printf("\r===  ℼ = %.20f  ===", eulerPi.val)
+		// dividing
+		result := new(big.Float).SetPrec(256)
+		result.Quo(one, newI)
+		sumSoFar.Add(sumSoFar, result)
+
+		if i % 10000 == 0 {
+			piSquared := new(big.Float).SetPrec(256)
+			piSquared.Mul(six, sumSoFar)
+			fmt.Println("\r pi = %v", piSquared)
 		}
-		
 	}
 }
