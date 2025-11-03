@@ -24,10 +24,11 @@ func main() {
 		result.Quo(one, newI)
 		sumSoFar.Add(sumSoFar, result)
 
-		if i % 10000 == 0 {
+		if i % 30000 == 0 {
 			piSquared := new(big.Float).SetPrec(256)
 			piSquared.Mul(six, sumSoFar)
-			fmt.Println("\r pi = %v", piSquared)
+			result := Sqrt(piSquared)
+			fmt.Printf("\r--- ℼ = %.15f ---", result)
 		}
 	}
 }
