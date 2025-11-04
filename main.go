@@ -7,7 +7,6 @@ import (
 ) 
 
 func main() {
-	// for the cool printing effects...
 	color.Green("Calculating pi...")
 	fmt.Println("")
 
@@ -16,17 +15,19 @@ func main() {
 	six := new(big.Float).SetPrec(8).SetFloat64(6)	
 
 	for i := 1; true; i++ {
-		newI := new(big.Float).SetPrec(32).SetFloat64(float64(i))
-		newI.Mul(newI, newI) //square it
+		// calculates i²
+		result := new(big.Float).SetPrec(32).SetFloat64(float64(i))
+		result.Mul(result, result) //square it
 
-		// dividing
-		result := new(big.Float).SetPrec(256).Quo(one, newI)
+		// calculates 1/i² and adds it to the running total
+		result.Quo(one, result)
 		sumSoFar.Add(sumSoFar, result)
 
 		if i % 30000 == 0 {
-			piSquared := new(big.Float).SetPrec(256).Mul(six, sumSoFar)
-			result := Sqrt(piSquared)
-			fmt.Printf("\r--- ℼ = %.15f ---", result)
+			// solves the equation: pi²/6 = sumSoFar  
+			// And then prints the result
+			result.Mul(six, sumSoFar)
+			fmt.Printf("\r--- ℼ = %.20f ---", Sqrt(result))
 		}
 	}
 }
