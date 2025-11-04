@@ -26,8 +26,9 @@ func main() {
 		if i % 30000 == 0 {
 			// solves the equation: pi²/6 = sumSoFar  
 			// And then prints the result
-			result.Mul(six, sumSoFar)
-			fmt.Printf("\r--- ℼ = %.20f ---", Sqrt(result))
+			piSquared := new(big.Float).SetPrec(256).Mul(six, sumSoFar)
+			result := Sqrt(piSquared)
+			fmt.Printf("\r--- ℼ = %.15f ---", result)
 		}
 	}
 }
